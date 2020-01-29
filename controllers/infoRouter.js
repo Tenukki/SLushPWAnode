@@ -46,6 +46,16 @@ infoRouter.delete('/:id', async (request, response,next) => {
     }
 });
 
+infoRouter.put("/:id", async(req,res) =>{
+
+  try {
+    const newUp = await Info.findByIdAndUpdate(req.params.id,req.body,{new: true})
+    res.status(200).json(newUp.toJSON()).end()
+  } catch (error) {
+    res.status(400).json({error: "id could not found"})
+    
+  }
+})
 
 
 /*
