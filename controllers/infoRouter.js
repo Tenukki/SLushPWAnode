@@ -26,6 +26,26 @@ infoRouter.get('/', async(req, res) =>{
   res.json(cards.map(Card => Card.toJSON()))
 })
 
+infoRouter.delete('/:id', async (request, response,next) => {
+    try {
+      const r = await Info.findById(request.params.id)
+      console.log(r)
+      if(!r){
+        response.status(404).json({error: "id couldn't be found"}).end()
+      }else{
+        try {
+        const deletetInfo =  await Info.findByIdAndDelete(request.params.id)
+        response.json(deletetInfo.toJSON())
+        } catch (error) {
+          next(error)
+        }
+      }
+      
+    } catch (error) {
+      
+    }
+});
+
 
 
 /*
