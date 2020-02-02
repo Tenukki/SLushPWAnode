@@ -20,28 +20,14 @@ loginRouter.post('/', async (request, response) => {
     id: user._id,
   }
 
-  if(user.admin === true){
-    const token = jwt.sign(userForToken, process.env.SECRET)
-    response
-      .status(200)
-      .send({ 
-          token,
-          username: user.username, 
-          name: user.name,
-          admin: user.admin 
-      })
-  }else if(user.admin === false){
-    const token = jwt.sign(userForToken, process.env.VOLUNTEER)
-    response
+  const token = jwt.sign(userForToken, process.env.SECRET)
+  response
     .status(200)
     .send({ 
-        token,
-        username: user.username, 
-        name: user.name,
-        admin: user.admin 
+      token,
+      username: user.username,
     })
-    
-  }
+  
 
 
 })
